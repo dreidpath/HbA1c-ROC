@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Introduction</title>
+    <script src="script.js"></script>
+  </head>
+  <body>
+
+<p>This application is a quick explorer to identify the best fasting plasma blood glucose values (mmol/l) for predicting poor glycaemic control in known diabetics. Poor glycaemic control is operationalised as a HbA1C &#8805 69.4 mol/mmol (8.5% DCCT units).  The use of 69.4 as the cut-off for poor glycaemic control is somewhat arbitrary, but there is evidence of poorer health outcomes above this value [<a href="http://www.ncbi.nlm.nih.gov/pubmed/23665365">1</a>].
+</p>
+
+<p>The problem may seem contrived.  After all, if you are interested in HbA1c, why measure blood glucose instead? It is, however, actually grounded in a serious problem.  HbA1c is widely used as a measure of glycaemic control, because it provides an estimate of the average blood glucose levels over the past 2-3 months [<a href="http://bit.ly/1I51EnM">2</a>].  HbA1c is also too expensive for population surveillance (and in some cases clinical use) in many low income settings.  In the government population surveys in Malaysia and Thailand, for instance, they use a blood glucose test.
+</p>
+
+<p>We used NHANES (2011-2012) data from known diabetics with HbA1c and fasting plasma blood glucose readings to estimate the logistic curve that predicts poor glycaemic control.  The logistic curve is continuous.  It does not tell you which blood glucose value is the best value to use as a cut-off. That is a policy and clinical decision and cannot be determined by the statistics alone.
+</p>
+
+<p>When you are ready, check the "Ready to start" box on the left panel.  A slider will appear that allows you to vary the cut-point for the blood glucose values.  In the main panel on the right (where this text currently appears), you will see two plots.  The first plot is of the logistic regression with the logistic curve and 95%CI.  Points at the top and bottom of the plot represent the population weighted true values (poor glycaemic control at the top and good glycaemic control at the bottom).  The red vertical line shows where the current blood glucose value is located.  And from that, it is easy (to see) how a 2x2 prediction table can be set up:  
+<ul>
+<li>Every point at the top, to the right of the vertical line represents a <b>True Positive</b>.</li>
+<li>Every point at the bottom, to the right of the vertical line represents a <b>False Positive</b>.</li>
+<li>Every point at the top, to the left of the vertical line represents a <b>False Negative.</b></li>
+<li>Every point at the bottom, to the left of the vertical line represents a <b>True Negative</b>.</li>
+</ul>
+
+The second plot is the Receiver Operator Characteristic (ROC) curve. It plots the True Positive rate (y-axis) against the False Positive rate (x-axis).  Essentially it represents the results of True and False Positive rates for all the possible blood glucose cut-values.  A red dot appears on the ROC curve representing the specific value associated with the blood glucose cut-off point.
+</p>
+
+</body>
+
+</html>
