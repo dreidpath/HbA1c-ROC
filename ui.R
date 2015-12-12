@@ -11,8 +11,12 @@ shinyUI(fluidPage(
       conditionalPanel(condition = "input.proceed == true",
                        sliderInput(inputId = "fbg", "Fasting Blood Glucose",  
                                    min = 2, max = 22, value = 7.4, step = 0.1),
+                       checkboxInput(inputId = "varycut", 
+                                     label = "Vary the HbA1c cut-point?", 
+                                     value = FALSE, width = NULL),
+                       conditionalPanel(condition = "input.varycut == true",
                        sliderInput(inputId = "cutpoint", "HbA1c cut-off",  
-                                   min = 40, max = 100, value = 69.4, step = 0.1)
+                                   min = 40, max = 100, value = 69.4, step = 0.1))
       )
     ),
     
