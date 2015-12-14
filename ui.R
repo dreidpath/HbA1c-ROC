@@ -1,3 +1,5 @@
+library(plotly)
+
 shinyUI(fluidPage(
   
   titlePanel("Predicting poor glycemic control from blood glucose"),
@@ -22,7 +24,7 @@ shinyUI(fluidPage(
     
     mainPanel(
       conditionalPanel(condition="input.proceed == false", 
-                       plotOutput("linearPlot"),
+                       plotlyOutput("linearPlot"),
                        includeHTML("./landing_page.html"),
                        checkboxInput(inputId = "proceed", 
                                      label = "Ready to start?", 
@@ -30,7 +32,7 @@ shinyUI(fluidPage(
                        
                        ),
       conditionalPanel(condition="input.proceed == true",
-                       plotOutput("logisticPlot")
+                       plotlyOutput("logisticPlot")
       )
       #       plotOutput("rocPlot")
     )
