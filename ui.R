@@ -25,14 +25,15 @@ shinyUI(fluidPage(
     mainPanel(
       conditionalPanel(condition="input.proceed == false", 
                        plotlyOutput("linearPlot"),
-                       includeHTML("./landing_page.html"),
+                       includeHTML("./landing_page.html"),   #
                        checkboxInput(inputId = "proceed", 
                                      label = "Ready to start?", 
                                      value = FALSE, width = NULL)
                        
                        ),
       conditionalPanel(condition="input.proceed == true",
-                       plotlyOutput("logisticPlot")
+                       plotlyOutput("logisticPlot"),
+                       uiOutput("playOutput")
       )
       #       plotOutput("rocPlot")
     )

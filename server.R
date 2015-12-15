@@ -2,6 +2,7 @@ library(shiny)
 library(ggplot2)
 library(plotly)
 library(dplyr)
+library(xtable)
 
 load("data.RData")
 
@@ -13,22 +14,16 @@ shinyServer(function(input, output, session){
     # newdata$logistic is the adjusted  HbA1c > x cutpoint based on input$cutpoint
     # newdata$confmat is the confusion matrix output based on the new cutpoint
     #
-    print(input$varycut)
     newdata <- bgDF
-    if(input$varycut==F){
-      newdata$logistic <- as.numeric(newdata$mmolmol>=69.4)
-    }
-    if(input$varycut==T){
     newdata$logistic <- as.numeric(newdata$mmolmol>=input$cutpoint)
-    }
     newdata$confmat <- NA
-    newdata$confmat[newdata$logistic == 0 & newdata$lbdglusi < input$fbg] <- 1  # TN
-    newdata$confmat[newdata$logistic == 1 & newdata$lbdglusi < input$fbg] <- 2  # FP
-    newdata$confmat[newdata$logistic == 0 & newdata$lbdglusi > input$fbg] <- 3  # FN
-    newdata$confmat[newdata$logistic == 1 & newdata$lbdglusi > input$fbg] <- 4  # TP
-    newdata$confmat <- factor(newdata$confmat,
-                                 levels = 1:4,
-                                 labels = c("TN", "FP", "FN", "TP"))
+    newdata$confmat[newdata$logistic == 0 & newdata$lbdglusi < input$fbg] <- "TN"  # TN
+    newdata$confmat[newdata$logistic == 1 & newdata$lbdglusi < input$fbg] <- "FP"  # FP
+    newdata$confmat[newdata$logistic == 0 & newdata$lbdglusi > input$fbg] <- "FN"  # FN
+    newdata$confmat[newdata$logistic == 1 & newdata$lbdglusi > input$fbg] <- "TP"  # TP
+    # newdata$confmat <- factor(newdata$confmat,
+    #                              levels = 1:4,
+    #                              labels = c("TN", "FP", "FN", "TP"))
     
     return(newdata)
   })
@@ -47,8 +42,24 @@ shinyServer(function(input, output, session){
   
   
   confusionMatrix <- reactive({
-     # Set up the confusion matrix here
+    cmdata <- plotData()
+    pred_uc <- cmdata$lbdglusi >= input$fbg
+    actual_uc <- cmdata$mmolmol >= input$cutpoint
+    binclass_result <- classMatrix(table(pred_uc, actual_uc))
+    
+    table_return <- binclassmat %>% gsub(pattern = "CELL 1", replacement = binclass_result$class_tbl[1,1]) %>%
+      gsub(pattern = "CELL 2", replacement = binclass_result$class_tbl[1,2]) %>%
+      gsub(pattern = "CELL 3", replacement = binclass_result$class_tbl[2,1]) %>%
+      gsub(pattern = "CELL 4", replacement = binclass_result$class_tbl[2,2]) %>%
+      gsub(pattern = "CELL 5", replacement = round(binclass_result$sensitivity, 2)) %>%
+      gsub(pattern = "CELL 6", replacement = round(binclass_result$specificity, 2)) %>%
+      gsub(pattern = "CELL 7", replacement = round(binclass_result$accuracy, 2)) %>%
+      gsub(pattern = "CELL 8", replacement = input$cutpoint) %>%
+      gsub(pattern = "CELL 9", replacement = input$fbg)
+      
+    return(HTML(table_return))
   })
+
   
   
   linearPlot <- reactive({ 
@@ -86,9 +97,7 @@ shinyServer(function(input, output, session){
     # Start the creation of the layers in ggplot
     fig2 <- ggplot(data=plotdata, aes(x=lbdglusi, y=logistic))
     fig2 <- fig2 + geom_point(position = position_jitter(h=0.05), aes(color=confmat), shape=21)
-    fig2 <- fig2 + scale_color_discrete(name="Binary Classification",
-                                        labels=c("True Negative", "False Positive", "False Negative", "True Positive"))
-    fig2 <- fig2 + scale_size(guide=FALSE)
+    fig2 <- fig2 + scale_color_discrete("Results", labels=c("Congruent", "Incongruent", "Congruent", "Incongruent")) #    fig2 <- fig2 + scale_size(guide=FALSE)
     fig2 <- fig2 + xlab("Blood Glucose (mmol/L)") + ylab(paste('Pr(HbA1c)',' > ', toString(input$cutpoint),  'mmol/mol'))
     fig2 <- fig2 + stat_function(fun = logistic_curve, color="Blue")  # Add the logistic curve
     
@@ -123,5 +132,6 @@ shinyServer(function(input, output, session){
     # Output the sensitivity and specificity here, and the confusion matrix
   })
   
+  output$playOutput <- renderUI( confusionMatrix() )
   
 })
