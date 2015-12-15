@@ -8,9 +8,9 @@ classMatrix <- function(tbl){
   pred.table <- round(tbl)
   
   tp <- pred.table[2,2]  # True Positive
-  fp <- pred.table[1,2]  # False Positive
+  fp <- pred.table[2,1]  # False Positive
   tn <- pred.table[1,1]  # True Negative
-  fn <- pred.table[2,1]  # False Negative
+  fn <- pred.table[1,2]  # False Negative
   sensitivity <- tp/(tp + fn)  # If a person has a disease, how often will the test be positive? 
   specificity <- tn/(tn + fp)  # If a person does not have the disease how often will the test be negative 
   ppv <- tp/(tp+fp)
@@ -20,3 +20,4 @@ classMatrix <- function(tbl){
   list(class_tbl=pred.table, sensitivity=sensitivity, specificity=specificity, accuracy=accuracy)
 }
 
+source("./classification-matrix.R")
