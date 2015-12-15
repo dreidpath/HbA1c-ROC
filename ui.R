@@ -32,8 +32,10 @@ shinyUI(fluidPage(
                        
                        ),
       conditionalPanel(condition="input.proceed == true",
+                         # plotlyOutput("logrocPlot"),  # Logistic and ROC plots side-by-side
                        plotlyOutput("logisticPlot"),
-                       uiOutput("playOutput")
+                       plotlyOutput("rocPlot"),
+                       uiOutput("sensspecTable")
       )
       #       plotOutput("rocPlot")
     )
