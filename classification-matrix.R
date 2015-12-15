@@ -5,7 +5,7 @@ binclassmat <- '<style type="text/css">
 .tg .tg-topbottompad{padding:30px 30px;}
 .tg .tg-tabletitle{background-color: gray; color: white; font-family:Arial, sans-serif;font-size: 1.5em; font-weight: bold;}
 .tg .tg-actualtop{font-family:Arial, sans-serif;font-size: 1em;font-weight:normal;padding:10px 5px; font-weight: bold; border-top:3px; border-bottom:0px; border-left:0px; border-right:0px; border-color:black; border-style:solid;}
-.tg .tg-actual{font-family:Arial, sans-serif;font-size: 1.1em; padding:10px 5px; font-weight: bold;}
+.tg .tg-actual{font-family:Arial, sans-serif;font-size: 1.1em; padding:10px 5px; font-weight: bold; text-align: center;}
 .tg .tg-titlerow{font-family:Arial, sans-serif; font-size: 1em; padding:10px 5px; font-weight: bold; text-align: center;}
 .tg .tg-titlerowpred{font-family:Arial, sans-serif; font-size: 1em; padding:10px 5px; font-weight: bold; text-align: center;}
 .tg .tg-matrixtop{font-family:Arial, sans-serif;font-size: 1em;font-weight:normal;padding:10px 5px; border-top:3px; border-bottom:0px; border-left:0px; border-right:0px; border-color:black; border-style:solid; text-align: center;}
@@ -22,7 +22,7 @@ binclassmat <- '<style type="text/css">
 <th class="tg-topbottompad" colspan="3"></th>
 </tr>
 <tr>
-<th class="tg-tabletitle" colspan="3">Binary Classification Matrix: <br></th>
+<th class="tg-tabletitle" colspan="3">Binary Classification Matrix<br></th>
 </tr>
 <tr class="tg-actualtop">
 <th></th>
@@ -35,13 +35,13 @@ binclassmat <- '<style type="text/css">
 </tr>
 <tr>
 <td class="tg">Positive</td>
-<td class="tg-matrixtop">CELL 1</td>
-<td class="tg-matrixtop">CELL 2</td>
+<td class="tg-matrixtop" style="background-color: #CC79A7;">CELL 1</td>
+<td class="tg-matrixtop" style="background-color: #009E73;">CELL 2</td>
 </tr>
 <tr>
 <td class="tg-matrixbottomtitle">Negative</td>
-<td class="tg-matrixbottom">CELL 3</td>
-<td class="tg-matrixbottom">CELL 4</td>
+<td class="tg-matrixbottom" style="background-color: #56B4E9;">CELL 3</td>
+<td class="tg-matrixbottom" style="background-color: #D55E00;">CELL 4</td>
 </tr>
 <tr>
 <td class="tg-cmtitle">Sensitivity</td>
