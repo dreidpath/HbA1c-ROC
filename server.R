@@ -27,7 +27,7 @@ shinyServer(function(input, output, session){
     
     return(newdata)
   })
-
+  
   
   logModel <- reactive({ 
     # run and return the logistic regression model with the HbA1c > x as the dichotomous
@@ -54,34 +54,32 @@ shinyServer(function(input, output, session){
       gsub(pattern = "CELL 4", replacement = binclass_result$class_tbl[1,1]) %>%
       gsub(pattern = "CELL 5", replacement = round(binclass_result$sensitivity, 2)) %>%
       gsub(pattern = "CELL 6", replacement = round(binclass_result$specificity, 2)) %>%
-      gsub(pattern = "CELL 7", replacement = round(binclass_result$accuracy, 2)) %>%
-      gsub(pattern = "CELL 8", replacement = input$cutpoint) %>%
-      gsub(pattern = "CELL 9", replacement = input$fbg)
-      
+      gsub(pattern = "CELL 7", replacement = round(binclass_result$accuracy, 2))
+    
     return(HTML(table_return))
   })
-
+  
   
   senspecData <- reactive({
-      cmdata <- plotData()
-      tpr <- c() # True positive rate (Sensitivity)
-      fpr <- c() # False positive rate (1 - Specificity)
-      actual_uc <- cmdata$mmolmol >= input$cutpoint
-      for(i in sort(unique(cmdata$lbdglusi))){
-        pred_uc <- cmdata$lbdglusi >= i
-        binclass_result <- classMatrix(table(pred_uc, actual_uc))
-        tpr <- c(tpr, binclass_result$sensitivity)
-        fpr <- c(fpr, 1-binclass_result$specificity)
-      }
-      fpr_rankorder <- order(fpr)
-      tpr <- tpr[fpr_rankorder]
-      fpr <- fpr[fpr_rankorder]
-      dataDF <- data.frame(tpr, fpr)
-      dataDF <- na.omit(dataDF)
-      dataDF <- rbind(c(0, 0), dataDF) # add the start point to the dataframe
-      dataDF <- rbind(dataDF, c(1, 1)) # add the end point to the dataframe
-      
-      return(dataDF)
+    cmdata <- plotData()
+    tpr <- c() # True positive rate (Sensitivity)
+    fpr <- c() # False positive rate (1 - Specificity)
+    actual_uc <- cmdata$mmolmol >= input$cutpoint
+    for(i in sort(unique(cmdata$lbdglusi))){
+      pred_uc <- cmdata$lbdglusi >= i
+      binclass_result <- classMatrix(table(pred_uc, actual_uc))
+      tpr <- c(tpr, binclass_result$sensitivity)
+      fpr <- c(fpr, 1-binclass_result$specificity)
+    }
+    fpr_rankorder <- order(fpr)
+    tpr <- tpr[fpr_rankorder]
+    fpr <- fpr[fpr_rankorder]
+    dataDF <- data.frame(tpr, fpr)
+    dataDF <- na.omit(dataDF)
+    dataDF <- rbind(c(0, 0), dataDF) # add the start point to the dataframe
+    dataDF <- rbind(dataDF, c(1, 1)) # add the end point to the dataframe
+    
+    return(dataDF)
   }) #      
   
   
@@ -91,11 +89,10 @@ shinyServer(function(input, output, session){
     #
     plotdata <- plotData()
     fig1 <- ggplot(data = plotdata, aes(x=lbdglusi, y=mmolmol)) +
-              ggtitle("Relationship between Blood Glucose and HbA1c") +
-              xlab("Blood Glucose (mmol/L)") + 
-              ylab('HbA1c (mmol/mol)') +
-              geom_point(shape=1) +    # Use hollow circles
-              geom_smooth(method=lm)   # Add linear regression line
+      xlab("Blood Glucose (mmol/L)") + 
+      ylab('HbA1c (mmol/mol)') +
+      geom_point(shape=1) +    # Use hollow circles
+      geom_smooth(method=lm)   # Add linear regression line
     fig1 <- ggplotly(fig1)  # Convert it to a ploty output
     return(fig1)
   })
@@ -152,8 +149,7 @@ shinyServer(function(input, output, session){
     fig3 <- fig3 + geom_abline(slope=1, intercept=0, 
                                linetype = "dotted", color = "Blue" )
     fig3 <- fig3 + xlab("False Positive Rate") + ylab(paste('True Positive Rate'))
-    fig3 <- fig3 + ggtitle("Detection of poorly controlled diabetes")
-    
+
     fig3 <- fig3 + geom_point(data = tmpdata, aes(x=fpr, y=tpr), color="Red", size=10) 
     return(fig3)
     
@@ -180,15 +176,15 @@ shinyServer(function(input, output, session){
     p
   })
   
-#   output$logrocPlot <- renderPlotly({
-#     p <- multiplot(basePlot(), rocPlot(), cols=1)
-#     p <- ggplotly(p)
-#     p
-#  })
+  #   output$logrocPlot <- renderPlotly({
+  #     p <- multiplot(basePlot(), rocPlot(), cols=1)
+  #     p <- ggplotly(p)
+  #     p
+  #  })
   
-
+  
   output$sensspecTable <- renderUI({ 
     confusionMatrix() 
-    })
+  })
   
 })

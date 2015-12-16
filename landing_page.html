@@ -1,24 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <style>
-      .top-one { margin-top: 1cm; }
-    </style>
     <meta charset="utf-8">
     <title>Introduction</title>
     <script src="script.js"></script>
   </head>
   <body>
-<p class="top-one">This application is a quick explorer to identify the best fasting plasma blood glucose values (mmol/l) for predicting poor glycaemic control in known diabetics. Poor glycaemic control is operationalised as a HbA1C &#8805 69.4 mol/mmol (8.5% DCCT units); although this can be varied in the application.  The use of 69.4 as the cut-off for poor glycaemic control is somewhat arbitrary, but there is evidence of poorer health outcomes above this value [<a href="http://www.ncbi.nlm.nih.gov/pubmed/23665365">1</a>].
+
+<p>This application is a quick explorer to identify the best fasting plasma blood glucose values (mmol/l) for predicting poor glycaemic control in known diabetics. Poor glycaemic control is operationalised as a HbA1C &#8805 69.4 mol/mmol (8.5% DCCT units).  The use of 69.4 as the cut-off for poor glycaemic control is somewhat arbitrary, but there is evidence of poorer health outcomes above this value [<a href="http://www.ncbi.nlm.nih.gov/pubmed/23665365">1</a>].
 </p>
 
 <p>The problem may seem contrived.  After all, if you are interested in HbA1c, why measure blood glucose instead? It is, however, actually grounded in a serious problem.  HbA1c is widely used as a measure of glycaemic control, because it provides an estimate of the average blood glucose levels over the past 2-3 months [<a href="http://bit.ly/1I51EnM">2</a>].  In many low and middle income settings HbA1c is also too expensive for population surveillance (and in some cases clinical use).  In the government population surveys in Malaysia and Thailand, for instance, they use a blood glucose test.
 </p>
 
-<p>We used NHANES (2011-2012) data from 333 known diabetics with HbA1c and fasting plasma blood glucose readings.  A logistic regression was run to estimate the relationship between poorly controlled diabetes (defined by HbA1c above an set cut-off) and blood glucose. The resulting logistic curve is continuous.  It does not tell you which blood glucose value is the best value to use as an estimate of poorly controlled diabetes. That is a policy and clinical decision and cannot be determined by the statistics alone.
+<p>We used NHANES (2011-2012) data from known diabetics with HbA1c and fasting plasma blood glucose readings to estimate the logistic curve that predicts poor glycaemic control.  The logistic curve is continuous.  It does not tell you which blood glucose value is the best value to use as a cut-off. That is a policy and clinical decision and cannot be determined by the statistics alone.
 </p>
 
-<p>When you are ready, check the "Ready to start" box at the bottom of this page.  A slider will appear that allows you to vary the cut-point for the blood glucose values.  In the main panel on the right (where this text currently appears), you will see two plots.  The first plot is of the logistic regression with the logistic curve and 95%CI.  Points at the top and bottom of the plot represent the population weighted true values (poor glycaemic control at the top and good glycaemic control at the bottom).  The red vertical line shows where the current blood glucose value is located.  And from that, it is easy (to see) how a 2x2 prediction table can be set up:  
+<p>When you are ready, check the "Ready to start" box on the left panel.  A slider will appear that allows you to vary the cut-point for the blood glucose values.  In the main panel on the right (where this text currently appears), you will see two plots.  The first plot is of the logistic regression with the logistic curve and 95%CI.  Points at the top and bottom of the plot represent the population weighted true values (poor glycaemic control at the top and good glycaemic control at the bottom).  The red vertical line shows where the current blood glucose value is located.  And from that, it is easy (to see) how a 2x2 prediction table can be set up:  
 <ul>
 <li>Every point at the top, to the right of the vertical line represents a <b>True Positive</b>.</li>
 <li>Every point at the bottom, to the right of the vertical line represents a <b>False Positive</b>.</li>

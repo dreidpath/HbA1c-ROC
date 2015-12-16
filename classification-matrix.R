@@ -1,7 +1,7 @@
 binclassmat <- '<style type="text/css">
 .tg  {border-collapse:collapse;border-spacing:0;margin:0px auto; }
-.tg td{font-family:Arial, sans-serif;font-size: 1em;font-weight:normal;padding:10px 5px;}
-.tg th{font-family:Arial, sans-serif;font-size: 1em;font-weight:normal;padding:10px 5px;}
+.tg td{font-family:Arial, sans-serif;font-size: 1em;font-weight:normal;padding:5px 0px;}
+.tg th{font-family:Arial, sans-serif;font-size: 1em;font-weight:normal;padding:5px 0px;}
 .tg .tg-topbottompad{padding:30px 30px;}
 .tg .tg-tabletitle{background-color: gray; color: white; font-family:Arial, sans-serif;font-size: 1.5em; font-weight: bold;}
 .tg .tg-actualtop{font-family:Arial, sans-serif;font-size: 1em;font-weight:normal;padding:10px 5px; font-weight: bold; border-top:3px; border-bottom:0px; border-left:0px; border-right:0px; border-color:black; border-style:solid;}
@@ -18,12 +18,6 @@ binclassmat <- '<style type="text/css">
 
 
 <div class="tg-wrap"><table class="tg">
-<tr>
-<th class="tg-topbottompad" colspan="3"></th>
-</tr>
-<tr>
-<th class="tg-tabletitle" colspan="3">Binary Classification Matrix<br></th>
-</tr>
 <tr class="tg-actualtop">
 <th></th>
 <th   class="tg-actual"colspan="2">Actual<br></th>
@@ -54,16 +48,5 @@ binclassmat <- '<style type="text/css">
 <tr>
 <td class="tg-cmtitle">Accuracy</td>
 <td class="tg-cmresult" colspan="2">CELL 7</td>
-</tr>
-<tr>
-<td class="tg-cmtitle">HbA1c cutpoint</td>
-<td class="tg-cmresult" colspan="2">CELL 8</td>
-</tr>
-<tr class="tg-cmtitlebottom">
-<td class="tg-cmtitle">Blood Glucose</td>
-<td class="tg-cmresult" colspan="2">CELL 9</td>
-</tr>
-<tr>
-<th class="tg-topbottompad" colspan="3"></th>
 </tr>
 </table></div>'
