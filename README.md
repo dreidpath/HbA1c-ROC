@@ -6,4 +6,4 @@ In R studio run the following commands:
 
 library(shiny)
 
-runUrl( "https://github.com/dreidpath/m4vXyMJx/archive/master.zip")
+runUrl( "https://github.com/dreidpath/HbA1c-ROC/archive/master.zip")
