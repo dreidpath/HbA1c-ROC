@@ -115,14 +115,14 @@ shinyServer(function(input, output, session){
     
     # Start the creation of the layers in ggplot
     fig2 <- ggplot(data=plotdata, aes(x=lbdglusi, y=logistic))
-    fig2 <- fig2 + geom_point(position = position_jitter(h=0.05), aes(color=confmat), shape=20, size=6.5)
+    fig2 <- fig2 + geom_point(position = position_jitter(h=0.05), aes(color=confmat), shape=20, size=1.5)
     fig2 <- fig2 + scale_color_manual(values=cbbPalette) # To use for fills, add
     fig2 <- fig2 + xlab("Blood Glucose (mmol/L)") + ylab(paste('Pr(HbA1c)',' > ', toString(input$cutpoint),  'mmol/mol'))
     fig2 <- fig2 + stat_function(fun = logistic_curve, color="Blue")  # Add the logistic curve
     
     # Add a single point on to the logistic curve
     tmpdata <- data.frame(bg = input$fbg, prob = logistic_curve(input$fbg) )
-    fig2 <- fig2 + geom_point(data = tmpdata, aes(x=bg, y=prob), color="Red", size=10) 
+    fig2 <- fig2 + geom_point(data = tmpdata, aes(x=bg, y=prob), color="Red", size=3) 
     # Add a vertical line
     fig2 <- fig2 + geom_vline(xintercept = tmpdata$bg, color="Red", 
                               linetype = "dotted", size=0.3)
@@ -149,7 +149,7 @@ shinyServer(function(input, output, session){
                                linetype = "dotted", color = "Blue" )
     fig3 <- fig3 + xlab("False Positive Rate") + ylab(paste('True Positive Rate'))
 
-    fig3 <- fig3 + geom_point(data = tmpdata, aes(x=fpr, y=tpr), color="Red", size=10) 
+    fig3 <- fig3 + geom_point(data = tmpdata, aes(x=fpr, y=tpr), color="Red", size=4) 
     return(fig3)
     
   })
